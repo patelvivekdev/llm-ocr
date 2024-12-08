@@ -1,0 +1,81 @@
+{
+  "name": "llm-ocr",
+  "description": "A simple OCR that use llm model",
+  "version": "0.0.1",
+  "type": "module",
+  "author": "Vivek Patel <me@patelvivek.dev>",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "Preserve",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vitest --ui",
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "test": "bun test:node && bun test:edge",
+    "test:edge": "vitest --config vitest.edge.config.js --run",
+    "test:node": "vitest --config vitest.node.config.js --run",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "ci": "bun run build && bun run check-format && bun run lint && bun run check-exports && bun run test",
+    "prepublishOnly": "npm run build && npm test",
+    "local-release": "changeset version && changeset publish"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^1.0.5",
+    "@ai-sdk/mistral": "^1.0.4",
+    "ai": "^4.0.13",
+    "dotenv": "^16.4.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.0",
+    "@changesets/cli": "^2.27.9",
+    "@edge-runtime/vm": "^4.0.4",
+    "@types/bun": "^1.1.13",
+    "@vitest/ui": "^2.1.6",
+    "prettier": "^3.4.1",
+    "tsup": "^8.3.5",
+    "typescript-eslint": "^8.16.0",
+    "vite-tsconfig-paths": "^5.1.2",
+    "vitest": "^2.1.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "typescript",
+    "template",
+    "npm",
+    "bun",
+    "tsup"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/patelvivekdev/ts-npm-template",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patelvivekdev/ts-npm-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/patelvivekdev/ts-npm-template/issues"
+  }
+}
