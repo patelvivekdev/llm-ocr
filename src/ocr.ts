@@ -7,7 +7,7 @@ import type { OCRObject } from './types';
 /**
  * Perform OCR on the given image file.
  * @param OCRObject - The OCR object.
- * - filePath - The path to the image file.
+ * - filePath - The path to the image file or a buffer of the image.
  * - modelID - The model ID to use for OCR (default: 'gemini-1.5-flash-8b').
  * - provider - The provider to use for OCR (default: 'google').
  * - stream - Whether to stream the OCR result (default: false).
@@ -22,9 +22,19 @@ export const ocr = async ({
   stream,
   systemPrompt,
 }: OCRObject): Promise<string> => {
-  const finalImageUrl = isRemoteFile(filePath)
-    ? filePath
-    : `data:image/jpeg;base64,${encodeImage(filePath)}`;
+  if (!filePath) {
+    throw new Error('Please provide a file path.');
+  }
+
+  let finalImageUrl = '';
+
+  if (typeof filePath === 'string') {
+    finalImageUrl = isRemoteFile(filePath)
+      ? filePath
+      : `data:image/jpeg;base64,${encodeImage(filePath)}`;
+  } else {
+    finalImageUrl = `data:image/jpeg;base64,${filePath.toString('base64')}`;
+  }
 
   const model = await selectModel(
     modelID ?? 'gemini-1.5-flash-8b',

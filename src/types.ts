@@ -14,7 +14,7 @@ export type ModelId = GoogleGenerativeAIModelId | MistralModelId;
 export type Provider = 'google' | 'mistral';
 
 export type OCRObject = {
-  filePath: string;
+  filePath: string | Buffer;
   modelID: ModelId;
   provider: Provider;
   systemPrompt?: string;

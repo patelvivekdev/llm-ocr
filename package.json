@@ -1,7 +1,7 @@
 {
   "name": "llm-ocr",
   "description": "A simple OCR that use llm model",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "author": "Vivek Patel <me@patelvivek.dev>",
   "license": "MIT",
