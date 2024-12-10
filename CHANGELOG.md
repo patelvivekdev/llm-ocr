@@ -1,5 +1,11 @@
 # Changelog for `llm-ocr`
 
+## 0.1.1
+
+### Patch Changes
+
+- Fix stream
+
 ## 0.1.0
 
 ### Minor Changes

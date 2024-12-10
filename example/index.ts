@@ -8,7 +8,7 @@ async function basicOCR() {
     filePath: filePath,
     modelID: 'gemini-exp-1206',
     provider: 'google',
-    stream: false,
+    // stream: true,
   });
 
   return result;
@@ -16,7 +16,16 @@ async function basicOCR() {
 
 const main = async () => {
   const result = await basicOCR();
-  console.log(result);
+  // check if the result is an array of strings
+
+  if (typeof result === 'string') {
+    console.log(result);
+    return;
+  }
+
+  for await (const textPart of result) {
+    console.log(textPart);
+  }
 };
 
 main();

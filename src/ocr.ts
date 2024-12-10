@@ -12,7 +12,7 @@ import type { OCRObject } from './types';
  * - provider - The provider to use for OCR (default: 'google').
  * - stream - Whether to stream the OCR result (default: false).
  * - systemPrompt - The system prompt to use for the AI model.
- * @returns The OCR result as a string in Markdown format.
+ * @returns The OCR result as a string or stream of strings.
  */
 
 export const ocr = async ({
@@ -21,7 +21,7 @@ export const ocr = async ({
   provider,
   stream,
   systemPrompt,
-}: OCRObject): Promise<string> => {
+}: OCRObject) => {
   if (!filePath) {
     throw new Error('Please provide a file path.');
   }
@@ -59,16 +59,14 @@ export const ocr = async ({
   ] as CoreMessage[];
 
   if (stream) {
-    const result = streamText({
+    const textStream = streamText({
       model,
       system,
       messages,
       temperature: 0.1,
     });
 
-    for await (const textPart of await result.text) {
-      return textPart;
-    }
+    return textStream.textStream;
   }
 
   const { text } = await generateText({
