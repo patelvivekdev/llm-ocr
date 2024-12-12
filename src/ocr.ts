@@ -1,4 +1,4 @@
-import { generateText, streamText, type CoreMessage } from 'ai';
+import { generateText, smoothStream, streamText, type CoreMessage } from 'ai';
 import { selectModel } from './ai';
 import { encodeImage, isRemoteFile } from './utils';
 import { SYSTEM_PROMPT } from './prompt';
@@ -12,6 +12,7 @@ import type { OCRObject } from './types';
  * - provider - The provider to use for OCR (default: 'google').
  * - stream - Whether to stream the OCR result (default: false).
  * - systemPrompt - The system prompt to use for the AI model.
+ * - smoothStreamDelay - The delay in milliseconds for smoothing the stream.
  * @returns The OCR result as a string or stream of strings.
  */
 
@@ -21,6 +22,7 @@ export const ocr = async ({
   provider,
   stream,
   systemPrompt,
+  smoothStreamDelay,
 }: OCRObject) => {
   if (!filePath) {
     throw new Error('Please provide a file path.');
@@ -64,6 +66,9 @@ export const ocr = async ({
       system,
       messages,
       temperature: 0.1,
+      experimental_transform: smoothStream({
+        delayInMs: smoothStreamDelay ?? 10,
+      }),
     });
 
     return textStream.textStream;

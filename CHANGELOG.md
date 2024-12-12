@@ -1,5 +1,11 @@
 # Changelog for `llm-ocr`
 
+## 0.1.2
+
+### Patch Changes
+
+- Added option for smoothStreamDelay
+
 ## 0.1.1
 
 ### Patch Changes

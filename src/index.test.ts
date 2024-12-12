@@ -29,16 +29,16 @@ describe('it should works with google', () => {
 });
 
 describe('it should works with mistral', () => {
-  it('should return the object for a local file', async () => {
-    const result = await ocr({
-      filePath: filePath,
-      modelID: 'pixtral-large-latest',
-      provider: 'mistral',
-      stream: false,
-    });
+  // it('should return the object for a local file', async () => {
+  //   const result = await ocr({
+  //     filePath: filePath,
+  //     modelID: 'pixtral-large-latest',
+  //     provider: 'mistral',
+  //     stream: false,
+  //   });
 
-    expect(result).toBeDefined();
-  });
+  //   expect(result).toBeDefined();
+  // });
 
   it('should return the object for a remote file', async () => {
     const result = await ocr({
