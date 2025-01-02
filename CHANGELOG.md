@@ -1,5 +1,11 @@
 # Changelog for `llm-ocr`
 
+## 0.1.3
+
+### Patch Changes
+
+- Update version
+
 ## 0.1.2
 
 ### Patch Changes
